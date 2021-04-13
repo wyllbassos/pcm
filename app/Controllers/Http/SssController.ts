@@ -1,5 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Ss from 'App/Models/Ss'
+import { schema } from '@ioc:Adonis/Core/Validator'
 
 export default class SssController {
   public async index({}: HttpContextContract) {
@@ -9,22 +10,28 @@ export default class SssController {
   }
 
   public async store({ request }: HttpContextContract) {
-    const data = request.only([
-      'ss',
-      'os',
-      'tag',
-      'nome_bem',
-      'descricao_servico',
-      'data',
-      'servico',
-      'centro_trabalho',
-      'solicitante',
-      'responsavel',
-    ])
-    const ss = await Ss.findByOrFail('ss', data.ss)
+    const dataValidator = await request.validate({
+      schema: schema.create({
+        ss: schema.string(),
+        tag: schema.string(),
+        nome_bem: schema.string(),
+        data: schema.date(),
+        solicitante: schema.string(),
+      }),
+      messages: {
+        'ss.required': 'ss are required to submit the form',
+        'tag.required': 'tag are required to submit the form',
+      },
+    })
+
+    const data = {
+      ...request.only(['os', 'descricao_servico', 'servico', 'centro_trabalho', 'responsavel']),
+      ...dataValidator,
+    }
+
+    const ss = await Ss.findBy('ss', data.ss)
 
     if (ss) {
-      console.log(ss)
       ss.merge(data)
       return ss.save()
     }
