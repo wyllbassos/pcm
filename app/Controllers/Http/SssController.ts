@@ -25,7 +25,14 @@ export default class SssController {
     })
 
     const data = {
-      ...request.only(['os', 'descricao_servico', 'servico', 'centro_trabalho', 'responsavel']),
+      ...request.only([
+        'os',
+        'descricao_servico',
+        'servico',
+        'centro_trabalho',
+        'responsavel',
+        'observacao_tratativas',
+      ]),
       ...dataValidator,
     }
 
@@ -47,18 +54,31 @@ export default class SssController {
 
   public async update({ request, params }: HttpContextContract) {
     const ss = await Ss.findOrFail(params.id)
-    const data = request.only([
-      'ss',
-      'os',
-      'tag',
-      'nome_bem',
-      'descricao_servico',
-      'data',
-      'servico',
-      'centro_trabalho',
-      'solicitante',
-      'responsavel',
-    ])
+    const dataValidator = await request.validate({
+      schema: schema.create({
+        ss: schema.string(),
+        tag: schema.string(),
+        nome_bem: schema.string(),
+        data: schema.date(),
+        solicitante: schema.string(),
+      }),
+      messages: {
+        'ss.required': 'ss are required to submit the form',
+        'tag.required': 'tag are required to submit the form',
+      },
+    })
+
+    const data = {
+      ...request.only([
+        'os',
+        'descricao_servico',
+        'servico',
+        'centro_trabalho',
+        'responsavel',
+        'observacao_tratativas',
+      ]),
+      ...dataValidator,
+    }
 
     ss.merge(data)
     await ss.save()
