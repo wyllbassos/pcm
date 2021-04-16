@@ -32,6 +32,9 @@ export default class SssController {
         'centro_trabalho',
         'responsavel',
         'observacao_tratativas',
+        'prioridade',
+        'recursos',
+        'tempo',
       ]),
       ...dataValidator,
     }
@@ -76,6 +79,9 @@ export default class SssController {
         'centro_trabalho',
         'responsavel',
         'observacao_tratativas',
+        'prioridade',
+        'recursos',
+        'tempo',
       ]),
       ...dataValidator,
     }

@@ -48,4 +48,13 @@ export default class Ss extends BaseModel {
 
   @column()
   public observacao_tratativas: string | null
+
+  @column()
+  prioridade: string | null
+
+  @column()
+  recursos: string | null
+
+  @column()
+  tempo: number | null
 }
