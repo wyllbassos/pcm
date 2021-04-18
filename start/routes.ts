@@ -20,4 +20,6 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
+Route.get('/', async () => ({"hello": "world teste Agora vai"}))
+
 Route.resource('sss', 'SssController').apiOnly()
