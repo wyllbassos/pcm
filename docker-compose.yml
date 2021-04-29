@@ -3,8 +3,23 @@ version: "3" ## especifica a versão do docker-compose file
 services: ## Define um serviço
   app: ## nome do serviço
     build: . ## localização do dockerfile
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://postgres:docker@postgres:5432/pcm
+      NODE_ENV: development
+      PORT: 3333
     command: npm run dev ## comando a executar
     ports:
       - "3333:3333" ## redirecionamento de porta quando chegar alguma requisição na porta 3000 chama o container na porta 3000
     volumes:
       - .:/home/node/app ## monitoro a pasta atual . e envio as alterações para /usr/app
+
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: pcm

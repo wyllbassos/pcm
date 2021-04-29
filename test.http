@@ -1,0 +1,16 @@
+POST http://localhost:3333/sss HTTP/1.1
+content-type: application/json
+
+{
+  "ss":"055024",
+  "tag":"P050-1250A",
+  "nome_bem":"PICADOR PALLMANN 01 PHT 720X1250",
+  "descricao_servico":"TROCA DE GARRA PALLMANN 01.",
+  "data":"2021-20-4",
+  "servico":"MECANICA",
+  "centro_trabalho":"09-041",
+  "solicitante":"MARCELO KWIATKOWSKI-FABRICA",
+  "os":"565181",
+  "responsavel":"VINICIUS DE SOUZA VIDAL"
+}
+###
