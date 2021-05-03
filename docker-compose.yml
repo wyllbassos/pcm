@@ -9,7 +9,7 @@ services: ## Define um serviço
       DATABASE_URL: postgres://postgres:docker@postgres:5432/pcm
       NODE_ENV: development
       PORT: 3333
-    command: npm run dev ## comando a executar
+    command: npm run dev
     ports:
       - "3333:3333" ## redirecionamento de porta quando chegar alguma requisição na porta 3000 chama o container na porta 3000
     volumes:
